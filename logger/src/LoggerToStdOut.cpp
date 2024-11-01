@@ -2,41 +2,49 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 
 namespace scribe
 {
     void LoggerToStdOut::logVerbose(const char* file, const char* function, const int line, const std::string &message)
     {
-        std::cout << "[VERBOSE] " << message << std::endl;
+        log(LOG_LEVEL::VERBOSE, file, function, line, message);
     }
 
     void LoggerToStdOut::logInfo(const char* file, const char* function, const int line, const std::string &message)
     {
-        std::cout << "File: " << file << std::endl;
-        std::cout << "Function: " << function << std::endl;
-        std::cout << "Line: " << line << std::endl;
-
-        std::cout << "[INFO] " << message << std::endl;
+        log(LOG_LEVEL::INFO, file, function, line, message);
     }
 
     void LoggerToStdOut::logWarning(const char* file, const char* function, const int line, const std::string &message)
     {
-        std::cout << "[WARNING] " << message << std::endl;
+        log(LOG_LEVEL::WARNING, file, function, line, message);
     }
 
     void LoggerToStdOut::logError(const char* file, const char* function, const int line, const std::string &message)
     {
-        std::cout << "[ERROR] " << message << std::endl;
+        log(LOG_LEVEL::ERROR, file, function, line, message);
     }
 
     void LoggerToStdOut::logCritical(const char* file, const char* function, const int line, const std::string &message)
     {
-        std::cout << "[CRITICAL] " << message << std::endl;
+        log(LOG_LEVEL::CRITICAL, file, function, line, message);
     }
 
     void LoggerToStdOut::log(LOG_LEVEL logLevel, const char* file, const char* function, const int line, const std::string &message)
     {
-        std::cout << "[" << logLevelEnumToStr(logLevel) << "] " << message << std::endl;
+
+        std::string fileStr(file);
+        size_t pos = fileStr.find_last_of("/\\");
+        std::string fileName = (pos == std::string::npos) ? fileStr : fileStr.substr(pos + 1);
+
+        std::stringstream s;
+
+        s << "[" << logLevelEnumToStr(logLevel) << "] ";
+        s << "[" << fileName << "|" << function << "|" << line << "]";
+        s << " " << message;
+
+        std::cout << s.str() << std::endl;
     }
 
     std::string LoggerToStdOut::logLevelEnumToStr(LOG_LEVEL logLevel)
@@ -49,16 +57,16 @@ namespace scribe
                 value = "VERBOSE";
                 break;
             case LOG_LEVEL::INFO:
-                value = "VERBOSE";
+                value = "INFO";
                 break;
             case LOG_LEVEL::WARNING:
-                value = "VERBOSE";
+                value = "WARNING";
                 break;
             case LOG_LEVEL::ERROR:
-                value = "VERBOSE";
+                value = "ERROR";
                 break;
             case LOG_LEVEL::CRITICAL:
-                value = "VERBOSE";
+                value = "CRITICAL";
                 break;
             default:
                 value = "NO_LEVEL_DEFINED";
