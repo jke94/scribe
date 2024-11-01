@@ -12,11 +12,16 @@ namespace scribe
             LoggerToStdOut() = default;
             ~LoggerToStdOut() = default;
 
-            void logVerbose(const std::string& message) override;
-            void logInfo(const std::string& message) override;
-            void logWarning(const std::string& message) override;
-            void logError(const std::string& message) override;
-            void logCritical(const std::string& message) override;            
+            void logVerbose(const char* file, const char* function, const int line, const std::string& message) override;
+            void logInfo(const char* file, const char* function, const int line, const std::string& message) override;
+            void logWarning(const char* file, const char* function, const int line, const std::string& message) override;
+            void logError(const char* file, const char* function, const int line, const std::string& message) override;
+            void logCritical(const char* file, const char* function, const int line, const std::string& message) override;
+
+        private:
+
+            void log(LOG_LEVEL logLevel, const char* file, const char* function, const int line, const std::string &message);
+            std::string logLevelEnumToStr(LOG_LEVEL logLevel);
     };
 }
 
