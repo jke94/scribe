@@ -13,10 +13,18 @@ target_include_directories(ScribeLogger PUBLIC
     logger/api
 )
 
-add_executable(ScribeClient 
-    sample/main.cpp
+add_executable(SimpleSampleClient 
+    sample/simple-sample-client/main.cpp
 )
 
-target_link_libraries(ScribeClient PRIVATE 
+target_link_libraries(SimpleSampleClient PRIVATE 
+    ScribeLogger
+)
+
+add_executable(ClientWithThreads 
+    sample/client-with-threads/main.cpp
+)
+
+target_link_libraries(ClientWithThreads PRIVATE 
     ScribeLogger
 )
