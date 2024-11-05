@@ -46,7 +46,7 @@ namespace scribe
 
         std::stringstream s;
 
-        s << "[" <<getDateAndTime() << "]";
+        s << "[" << getDateAndTime() << "]";
         s << "[" << logLevelEnumToStr(logLevel) << "]";
         s << "[" << fileName << "|" << function << "|" << line << "]";
         s << " " << message;

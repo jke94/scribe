@@ -8,6 +8,7 @@
 
 namespace scribe
 {
+    // TODO: Refactor to initialize logger.
     std::shared_ptr<ILogger> logger_ = std::make_shared<LoggerToStdOut>();
 
     void logVerbose(const char* file, const char* function, const int line, const std::string& message)
