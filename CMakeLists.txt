@@ -23,6 +23,7 @@ target_link_libraries(SimpleSampleClient PRIVATE
 
 add_executable(ClientWithThreads 
     sample/client-with-threads/main.cpp
+    sample/client-with-threads/SomeOperations.cpp
 )
 
 target_link_libraries(ClientWithThreads PRIVATE 

@@ -24,7 +24,7 @@ public:
     }
 };
 
-int main( int argc, char* argv[] )
+int main( int argc, char* argv[])
 {
     std::shared_ptr<ICosa> cosa = std::make_shared<Cosa>();
 

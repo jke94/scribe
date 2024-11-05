@@ -1,11 +1,14 @@
 #include "LoggerToStdOut.h"
 
 #include <iostream>
+#include <mutex>
 #include <string>
 #include <sstream>
 
 namespace scribe
 {
+    std::mutex mtx;
+
     void LoggerToStdOut::logVerbose(const char* file, const char* function, const int line, const std::string &message)
     {
         log(LOG_LEVEL::VERBOSE, file, function, line, message);
@@ -33,6 +36,7 @@ namespace scribe
 
     void LoggerToStdOut::log(LOG_LEVEL logLevel, const char* file, const char* function, const int line, const std::string &message)
     {
+        std::lock_guard<std::mutex> lock(mtx);
 
         std::string fileStr(file);
         size_t pos = fileStr.find_last_of("/\\");
