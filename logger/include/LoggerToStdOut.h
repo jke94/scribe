@@ -22,6 +22,7 @@ namespace scribe
 
             void log(LOG_LEVEL logLevel, const char* file, const char* function, const int line, const std::string &message);
             std::string logLevelEnumToStr(LOG_LEVEL logLevel);
+            std::string getDateAndTime();
     };
 }
 
