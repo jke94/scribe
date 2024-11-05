@@ -7,5 +7,8 @@
 
 void doSomethingA(std::string msg);
 void doSomethingB(std::string msg);
+void doSomethingC(std::string msg);
+void doSomethingD(std::string msg);
+void doSomethingE(std::string msg);
 
 #endif

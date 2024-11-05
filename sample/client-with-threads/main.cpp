@@ -21,15 +21,15 @@ int main( int argc, char* argv[] )
         }
         else if (i % 5 == 0)
         {
-            threads[i] = std::thread(doSomethingA, "[THREAD] " + std::to_string(i) + ": A simple info message");
+            threads[i] = std::thread(doSomethingC, "[THREAD] " + std::to_string(i) + ": A simple info message");
         }
         else if (i % 7 == 0)
         {
-            threads[i] = std::thread(doSomethingB, "[THREAD] " + std::to_string(i) + ": A simple info message");
+            threads[i] = std::thread(doSomethingD, "[THREAD] " + std::to_string(i) + ": A simple info message");
         }        
         else
         {
-            threads[i] = std::thread(doSomethingA, "[THREAD] " + std::to_string(i) + ": A simple info message");
+            threads[i] = std::thread(doSomethingE, "[THREAD] " + std::to_string(i) + ": A simple info message");
         }
     }
 
