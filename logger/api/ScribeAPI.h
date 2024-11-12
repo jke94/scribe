@@ -52,8 +52,7 @@ namespace scribe
     // SCRIBE INFRASTRUCTURE FUNCTIONS.
 
     void initializeLogger(std::shared_ptr<ILogger> logger);
-    void configMinimunLoggerLevel(std::shared_ptr<ILogger> logger, LOG_LEVEL loggerLevel);
-    // void finalizeLogger(std::shared_ptr<ILogger>& logger); // ????    
+    void configMinimunLoggerLevel(std::shared_ptr<ILogger> logger, LOG_LEVEL loggerLevel); 
 }
 
 
