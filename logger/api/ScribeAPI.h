@@ -55,8 +55,6 @@ namespace scribe
     void configMinimunLoggerLevel(std::shared_ptr<ILogger> logger, LOG_LEVEL loggerLevel); 
 }
 
-
-
 #ifndef LOG_DISABLE
 
 #define LOG_VERBOSE(...) scribe::logVerbose(__FILE__, __FUNCTION__, __LINE__, scribe::build_message(__VA_ARGS__))

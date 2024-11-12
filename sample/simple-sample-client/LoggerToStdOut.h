@@ -22,6 +22,8 @@ class LoggerToStdOut : public scribe::ILogger
         void log(scribe::LOG_LEVEL logLevel, const char* file, const char* function, const int line, const std::string &message);
         std::string logLevelEnumToStr(scribe::LOG_LEVEL logLevel);
         std::string getDateAndTime();
+
+        // TODO: Implement the logic in logger to use this variable in logger. Only work if log level is upper than minimun log level.
         scribe::LOG_LEVEL logLevel_;
 };
 
