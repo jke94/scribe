@@ -1,4 +1,5 @@
 #include "ScribeAPI.h"
+#include "LoggerToStdOut.h"
 
 #include <iostream>
 #include <memory>
@@ -26,6 +27,11 @@ public:
 
 int main( int argc, char* argv[])
 {
+    // Create and configure logger.
+    std::shared_ptr<scribe::ILogger> logger = std::make_shared<LoggerToStdOut>();
+    scribe::initializeLogger(logger);
+    scribe::configMinimunLoggerLevel(logger, scribe::LOG_LEVEL::INFO);
+
     std::shared_ptr<ICosa> cosa = std::make_shared<Cosa>();
 
     cosa->something();
