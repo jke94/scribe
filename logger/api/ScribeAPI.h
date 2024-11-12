@@ -1,11 +1,38 @@
-#ifndef DEMO_VARIADIC_H
-#define DEMO_VARIADIC_H
+#ifndef SCRIBE_API_H
+#define SCRIBE_API_H
 
-#include <string>
+#include <memory>
 #include <sstream>
+#include <string>
 
 namespace scribe
 {
+    enum class LOG_LEVEL
+    {
+        VERBOSE,
+        INFO,
+        WARNING,
+        ERROR,
+        CRITICAL
+    };
+
+    class ILogger
+    {
+        public:
+
+            virtual void setMinimunLoggerLevel(LOG_LEVEL logLevel) = 0;
+
+            virtual void logVerbose(const char* file, const char* function, const int line, const std::string& message) = 0;
+            virtual void logInfo(const char* file, const char* function, const int line, const std::string& message) = 0;
+            virtual void logWarning(const char* file, const char* function, const int line, const std::string& message) = 0;
+            virtual void logError(const char* file, const char* function, const int line, const std::string& message) = 0;
+            virtual void logCritical(const char* file, const char* function, const int line, const std::string& message) = 0;
+
+        protected:
+
+            virtual ~ILogger() {};
+    };
+
     template <typename... Args>
     std::string build_message(const Args&... args) 
     {
@@ -14,12 +41,22 @@ namespace scribe
         return stream.str();
     }
 
+    // SCRIBE FUNCTIONS WRAPPED TO BE USED BY LOGGER CALLS.
+
     void logVerbose(const char* file, const char* function, const int line, const std::string& message);
     void logInfo(const char* file, const char* function, const int line, const std::string& message);
     void logWarning(const char* file, const char* function, const int line, const std::string& message);
     void logError(const char* file, const char* function, const int line, const std::string& message);
     void logCritical(const char* file, const char* function, const int line, const std::string& message);
+
+    // SCRIBE INFRASTRUCTURE FUNCTIONS.
+
+    void initializeLogger(std::shared_ptr<ILogger> logger);
+    void configMinimunLoggerLevel(std::shared_ptr<ILogger> logger, LOG_LEVEL loggerLevel);
+    // void finalizeLogger(std::shared_ptr<ILogger>& logger); // ????    
 }
+
+
 
 #ifndef LOG_DISABLE
 

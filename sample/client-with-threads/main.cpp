@@ -1,10 +1,15 @@
 #include "ScribeAPI.h"
 #include "SomeOperations.h"
+#include "LoggerToStdOut.h"
 
 #include <thread>
 
 int main( int argc, char* argv[] )
 {
+    // Create and configure logger.
+    std::shared_ptr<scribe::ILogger> logger = std::make_shared<LoggerToStdOut>();
+    scribe::initializeLogger(logger);
+    scribe::configMinimunLoggerLevel(logger, scribe::LOG_LEVEL::INFO);
 
     const int n_threads = 500;
     std::thread threads[n_threads] = {};
