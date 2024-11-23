@@ -3,7 +3,7 @@
 
 #include <string>
 #include "ICallbackHandler.h"
-#include "ScribeAPI.h"
+#include "ScribeApi.h"
 
 class CallbackHandler : public ICallbackHandler
 {

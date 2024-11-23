@@ -1,7 +1,7 @@
 #ifndef SOME_OPERATIONS_H
 #define SOME_OPERATIONS_H
 
-#include "ScribeAPI.h"
+#include "ScribeApi.h"
 
 #include <string>
 

@@ -1,5 +1,5 @@
 #include "Logger.h"
-#include "ScribeAPI.h"
+#include "ScribeApi.h"
 #include "LoggerContainer.h"
 
 using namespace scribe;

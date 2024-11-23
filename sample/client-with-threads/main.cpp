@@ -4,7 +4,7 @@
 #include <string>
 #include <thread>
 
-#include "ScribeAPI.h"
+#include "ScribeApi.h"
 #include "SomeOperations.h"
 #include "CallbackHandler.h"
 

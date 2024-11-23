@@ -4,7 +4,7 @@
 #include <functional>
 #include <string>
 
-#include "ScribeAPI.h"
+#include "ScribeApi.h"
 
 namespace scribe
 {

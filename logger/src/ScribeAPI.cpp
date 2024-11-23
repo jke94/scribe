@@ -1,7 +1,7 @@
 #include <memory>
 #include <string>
 
-#include "ScribeAPI.h"
+#include "ScribeApi.h"
 #include "ILogger.h"
 #include "LoggerWrapper.h"
 #include "LoggerContainer.h"
