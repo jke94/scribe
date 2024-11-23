@@ -22,7 +22,7 @@ int main( int argc, char* argv[] )
     LOGGER_INFRASTRUCTURE_RESULT configLogLevelResult = configMinimunLoggerLevel(LOG_LEVEL::VERBOSE);
     std::cout << "Configuration logger minimun logger level result: " << loggerInfrastructureEnumToStr(configLogLevelResult) << std::endl;    
 
-    const int n_threads = 220;
+    const int n_threads = 250;
     std::thread threads[n_threads] = {};
 
     for(int i=0; i<n_threads; i++)
