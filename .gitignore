@@ -50,3 +50,9 @@ CMakeUserPresets.json
 
 # CMakeLists output directory
 build/
+
+# Logger files.
+*.log
+
+# Valgrind report results
+*valgrind-out.txt
