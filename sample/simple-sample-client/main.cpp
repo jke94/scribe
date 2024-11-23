@@ -1,46 +1,63 @@
 #include "ScribeAPI.h"
-#include "LoggerToStdOut.h"
+#include "LoggerLibConsumer.h"
 
 #include <iostream>
 #include <memory>
 #include <string>
 
-class ICosa
+using namespace LoggerLibraryConsumer;
+
+std::string loggerInfrastructureEnumToStr(LOGGER_INFRASTRUCTURE_RESULT loggerInfraResult);
+
+void logCallbackFunction(LOG_LEVEL loglevel, std::string logMessage)
 {
-public:
-    virtual void something() = 0;
+    std::cout<< logMessage << std::endl;
+}
 
-protected:
-    virtual ~ICosa() {};
-};
-
-class Cosa : public ICosa
+int main(int argc, char* argv[])
 {
-public:
-    Cosa() = default;
-    ~Cosa() = default;
-    void something() override
-    {
-        LOG_VERBOSE("It is something!");
-    }
-};
+    LOGGER_INFRASTRUCTURE_RESULT initializeLoggerResult = initializeLogger(logCallbackFunction);
+    std::cout << "Initialize logger result: " << loggerInfrastructureEnumToStr(initializeLoggerResult) << std::endl;
 
-int main( int argc, char* argv[])
-{
-    // Create and configure logger.
-    std::shared_ptr<scribe::ILogger> logger = std::make_shared<LoggerToStdOut>();
-    scribe::initializeLogger(logger);
-    scribe::configMinimunLoggerLevel(logger, scribe::LOG_LEVEL::INFO);
+    LOGGER_INFRASTRUCTURE_RESULT configLogLevelResult = configMinimunLoggerLevel(LOG_LEVEL::VERBOSE);
+    std::cout << "Configuration logger minimun logger level result: " << loggerInfrastructureEnumToStr(configLogLevelResult) << std::endl;
 
-    std::shared_ptr<ICosa> cosa = std::make_shared<Cosa>();
+    std::shared_ptr<LoggerLibConsumer> itemA = std::make_shared<LoggerLibConsumer>();
+    int itemAResult = itemA->multiplyByARandomNumber(1994);
+    std::cout<< "Result A: " << itemAResult << std::endl;
 
-    cosa->something();
-
-    LOG_VERBOSE("hello", ' ', 23, ' ', 3.14, " Bye! " , 2);
-    LOG_INFO(1994, " [-] ", "Direction: ", cosa.get());
-    LOG_WARNING("qweqwe", "-", 1);
-    LOG_ERROR(false, "-", 6);
-    LOG_CRITICAL(true, "-", 1);
+    LoggerLibConsumer itemB;
+    int itemBResult = itemA->multiplyByARandomNumber(2024);
+    std::cout<< "Result B: " << itemBResult << std::endl;
 
     return 0;
+}
+
+std::string loggerInfrastructureEnumToStr(LOGGER_INFRASTRUCTURE_RESULT loggerInfraResult)
+{
+    std::string value;
+
+    switch (loggerInfraResult)
+    {
+        case LOGGER_INFRASTRUCTURE_RESULT::WTF:
+            value = "WTF";
+            break;
+        case LOGGER_INFRASTRUCTURE_RESULT::OK:
+            value = "OK";
+            break;
+        case LOGGER_INFRASTRUCTURE_RESULT::FAILURE_HEY_YOU_HAVE_ALREADY_INITIALIZE_THE_LOGGER:
+            value = "FAILURE_HEY_YOU_HAVE_ALREADY_INITIALIZE_THE_LOGGER";
+            break;
+        case LOGGER_INFRASTRUCTURE_RESULT::FAILURE_CALLBACK_LOGGER_IS_NULL:
+            value = "FAILURE_CALLBACK_LOGGER_IS_NULL";
+            break;
+        case LOGGER_INFRASTRUCTURE_RESULT::FAILURE_CALLBACK_IS_NULL_PLEASE_INITIALIZE_FIRST_THE_CALLBACK_BEFORE_TO_SET_MIN_LOGGER_LEVEL:
+            value = "FAILURE_CALLBACK_IS_NULL_PLEASE_INITIALIZE_FIRST_THE_CALLBACK_BEFORE_TO_SET_MIN_LOGGER_LEVEL";
+            break;
+        default:
+            value = "NO_LEVEL_DEFINED";
+            break;
+    }
+
+    return value;
 }

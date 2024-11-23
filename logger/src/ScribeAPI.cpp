@@ -1,63 +1,44 @@
-#include "ScribeAPI.h"
-
 #include <memory>
 #include <string>
 
-namespace scribe
+#include "ScribeAPI.h"
+#include "ILogger.h"
+#include "LoggerWrapper.h"
+#include "ILoggerContainer.h"
+
+LOGGER_INFRASTRUCTURE_RESULT initializeLogger(void(*logCallback)(LOG_LEVEL loglevel, std::string logMessage))
 {
-    std::shared_ptr<ILogger> logger_;
-
-    void logVerbose(const char* file, const char* function, const int line, const std::string& message)
-    {
-        if(logger_)
-        {
-            logger_.get()->logVerbose(file, function, line, message);
-        }
-    }
-
-    void logInfo(const char* file, const char* function, const int line, const std::string& message)
-    {
-        if(logger_)
-        {
-            logger_.get()->logInfo(file, function, line, message);
-        }
-    }
-
-    void logWarning(const char* file, const char* function, const int line, const std::string& message)
-    {
-        if(logger_)
-        {        
-            logger_.get()->logWarning(file, function, line, message);
-        }
-    }
-
-    void logError(const char* file, const char* function, const int line, const std::string& message)
-    {
-        if(logger_)
-        {        
-            logger_.get()->logError(file, function, line, message);
-        }
-    }
-
-    void logCritical(const char* file, const char* function, const int line, const std::string& message)
-    {
-        if(logger_)
-        {        
-            logger_.get()->logCritical(file, function, line, message);
-        }        
-    }
+    LOGGER_INFRASTRUCTURE_RESULT result = LOGGER_INFRASTRUCTURE_RESULT::WTF;
     
-    void initializeLogger(std::shared_ptr<ILogger> logger)
+    if(scribe::ILoggerContainer::logger_)
     {
-        logger_ = std::move(logger);
+        result = LOGGER_INFRASTRUCTURE_RESULT::FAILURE_HEY_YOU_HAVE_ALREADY_INITIALIZE_THE_LOGGER;
+    
+        return result;
     }
 
-    void configMinimunLoggerLevel(std::shared_ptr<ILogger> logger, scribe::LOG_LEVEL loggerLevel)
+    scribe::ILoggerContainer::logger_ = std::make_shared<scribe::LoggerWrapper>();
+    scribe::ILoggerContainer::logger_->setLoggerCallback(logCallback);
+    result = LOGGER_INFRASTRUCTURE_RESULT::OK;
+
+    return result;
+}
+
+LOGGER_INFRASTRUCTURE_RESULT configMinimunLoggerLevel(LOG_LEVEL loglevel)
+{
+    LOGGER_INFRASTRUCTURE_RESULT result = LOGGER_INFRASTRUCTURE_RESULT::WTF;
+
+    if(!scribe::ILoggerContainer::logger_)
     {
-        if(logger_)
-        {
-            logger->setMinimunLoggerLevel(loggerLevel);
-        }
+        result = LOGGER_INFRASTRUCTURE_RESULT::FAILURE_CALLBACK_IS_NULL_PLEASE_INITIALIZE_FIRST_THE_CALLBACK_BEFORE_TO_SET_MIN_LOGGER_LEVEL;
+    
+        return result;
     }
+
+    scribe::ILoggerContainer::logger_->setMinimunLoggerLevel(loglevel);
+    result = LOGGER_INFRASTRUCTURE_RESULT::OK;
+
+    return result;
+    
 }
 
