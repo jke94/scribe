@@ -6,6 +6,7 @@
 namespace scribe
 {
     std::mutex mutex_;
+    std::mutex mutexSetMinimunLog_;
 
     void LoggerWrapper::setLoggerCallback(void (*logCallback)(LOG_LEVEL loglevel, std::string logMessage))
     {
@@ -19,7 +20,8 @@ namespace scribe
 
     void LoggerWrapper::setMinimunLoggerLevel(LOG_LEVEL logLevel)
     {
-        // TODO: Add mutex??
+        std::lock_guard<std::mutex> lock(mutexSetMinimunLog_);
+        
         minimunLogLevel_ = logLevel;
     }
 

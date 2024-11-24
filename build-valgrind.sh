@@ -1,5 +1,4 @@
 #!/bin/bash
-
 valgrind --leak-check=full \
          --show-leak-kinds=all \
          --track-origins=yes \
@@ -11,4 +10,3 @@ valgrind --leak-check=full \
          --track-origins=yes \
          --log-file=SimpleClientWithThreads-valgrind-out.txt \
          ./build/SimpleClientWithThreads
-

@@ -7,7 +7,7 @@
 
 namespace scribe
 {
-    class ILoggerContainer
+    class LoggerContainer
     {
     public:
         static std::shared_ptr<ILogger> logger_;
