@@ -17,9 +17,11 @@ jobs:
         run: |
           cmake --version
 
+      - name: List project files
+        run: find . -type f | sort
+    
       - name: Configure CMake
-        run: |
-          cmake -B ./build
+        run: cmake -S . -B build
 
       - name: Build project
         run: |
