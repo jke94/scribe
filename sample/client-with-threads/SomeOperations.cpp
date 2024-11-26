@@ -15,7 +15,7 @@ void doSomethingA(std::string msg)
 
 void doSomethingB(std::string msg)
 {
-    const long value = 123123123123123123;
+    const long value = 1231231;
     std::shared_ptr<LoggerLibConsumer> item = std::make_shared<LoggerLibConsumer>();
     int itemResult = item->multiplyByARandomNumber(value);
 }
