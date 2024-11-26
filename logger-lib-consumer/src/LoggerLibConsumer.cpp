@@ -1,7 +1,7 @@
 #include <random>
 
 #include "LoggerLibConsumer.h"
-#include "ILoggerApi.h"
+#include "LoggerApi.h"
 
 namespace LoggerLibraryConsumer
 {
